@@ -1,0 +1,46 @@
+package encapsulation.class_problems;
+
+class AttendanceSheet {
+    private String[] students;
+    private int presentCount;
+
+    AttendanceSheet(int maxStudents) {
+        students = new String[maxStudents];
+        presentCount = 0;
+    }
+
+    public void markPresent(String name) {
+        if (!isPresent(name) && presentCount < students.length) {
+            students[presentCount] = name;
+            presentCount++;
+        }
+    }
+
+    public int getPresentCount() {
+        return presentCount;
+    }
+
+    public boolean isPresent(String name) {
+        for (int i = 0; i < presentCount; i++) {
+            if (students[i].equals(name)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+public class Program5 {
+    public static void main(String[] args) {
+        AttendanceSheet sheet = new AttendanceSheet(30);
+
+        sheet.markPresent("Ana");
+        sheet.markPresent("Ben");
+        sheet.markPresent("Ana");
+
+        System.out.println("Present Count: " + sheet.getPresentCount());
+        System.out.println("Ben present: " + sheet.isPresent("Ben"));
+        System.out.println("Chen present: " + sheet.isPresent("Chen"));
+    }
+}
