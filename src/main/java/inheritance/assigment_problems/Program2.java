@@ -1,0 +1,91 @@
+package inheritance.assigment_problems;
+
+import java.util.Scanner;
+
+abstract class Vehicle {
+    protected int hours;
+
+    Vehicle(int hours) {
+        this.hours = hours;
+    }
+
+    public abstract double calculateCharge();
+}
+
+class Bike extends Vehicle {
+
+    Bike(int hours) {
+        super(hours);
+    }
+
+    @Override
+    public double calculateCharge() {
+        return 10 * hours;
+    }
+}
+
+class Car extends Vehicle {
+
+    Car(int hours) {
+        super(hours);
+    }
+
+    @Override
+    public double calculateCharge() {
+        return 30 + (20 * (hours - 1));
+    }
+}
+
+class Truck extends Vehicle {
+
+    Truck(int hours) {
+        super(hours);
+    }
+
+    @Override
+    public double calculateCharge() {
+        return Math.max(50 * hours, 100);
+    }
+}
+
+public class Program2 {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        double total = 0;
+
+        for (int i = 0; i < n; i++) {
+
+            String type = sc.next();
+            int hours = sc.nextInt();
+
+            Vehicle vehicle;
+
+            switch (type) {
+                case "BIKE":
+                    vehicle = new Bike(hours);
+                    break;
+
+                case "CAR":
+                    vehicle = new Car(hours);
+                    break;
+
+                default:
+                    vehicle = new Truck(hours);
+            }
+
+            double charge = vehicle.calculateCharge();
+
+            System.out.printf("%s: %.2f%n", type, charge);
+
+            total += charge;
+        }
+
+        System.out.printf("Total: %.2f%n", total);
+
+        sc.close();
+    }
+}
